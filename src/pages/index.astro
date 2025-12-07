@@ -3,7 +3,7 @@ import '../styles/global.css';
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="overflow-x-hidden">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -31,37 +31,38 @@ import '../styles/global.css';
       .group:hover .top-outline-glow {
         animation: topOutlineSweep 6s ease-in-out infinite;
       }
+      html {
+        scroll-behavior: smooth;
+      }
     </style>
   </head>
-  <body class="bg-[#02030b] font-['Poppins'] text-[#f4f6ff] min-h-screen antialiased">
-    <div class="min-h-screen relative pt-6 pb-16">
+  <body class="bg-[#02030b] font-['Poppins'] text-[#f4f6ff] min-h-screen antialiased overflow-x-hidden">
+    <div class="min-h-screen relative pt-6 pb-16 overflow-hidden">
       <header
         class="fixed top-0 left-0 w-full z-50 border-b border-white/5 bg-[#060a20]/70 backdrop-blur-3xl"
       >
         <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 text-sm text-[#b8c1de]">
           <a href="#top" class="inline-flex items-center gap-3 text-base font-semibold text-white">
-            <span
-              class="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-blue-500/40 bg-gradient-to-br from-[#122b70]/70 to-[#03030c] shadow-[0_20px_40px_rgba(15,59,255,0.25)]"
-            >
-              <span
-                class="h-4 w-4 rounded-full bg-gradient-to-br from-[#67c7ff] via-[#2c74ff] to-[#0b3eff] shadow-[0_10px_20px_rgba(11,62,255,0.45)]"
-              ></span>
-              <span class="absolute left-1 top-1 h-2 w-2 rounded-full bg-white/90 blur-[1px]"></span>
-            </span>
-            <span>PKT</span>
+            <img src="/pktlogo.svg" alt="PKT" class="h-8 w-auto opacity-80" />
           </a>
           <nav class="hidden items-center gap-4 text-xs tracking-wide sm:flex">
-            {['Home', 'About', 'Portfolio', 'Contact', 'FAQ'].map(link => (
+            {[
+              { label: 'Media network', href: '#top' },
+              { label: 'Overview', href: '#overview' },
+              { label: 'Next gen', href: '#next-gen' },
+              { label: 'Three pillars', href: '#pillars' }
+            ].map(link => (
               <a
-                href="#"
+                href={link.href}
                 class="rounded-full px-3 py-2 transition hover:bg-white/10 hover:text-white"
               >
-                {link}
+                {link.label}
               </a>
             ))}
           </nav>
           <a
-            href="#contact"
+            href="#"
+            data-modal-open
             class="inline-flex items-center rounded-[14px] bg-gradient-to-r from-[#0b3eff] via-[#2f7bff] to-[#67c7ff] px-5 py-2 text-sm font-semibold text-white shadow-[0_15px_35px_rgba(12,60,255,0.35)] transition hover:translate-y-[-1px] hover:shadow-[0_25px_45px_rgba(12,60,255,0.45)]"
           >
             Get in touch
@@ -71,23 +72,27 @@ import '../styles/global.css';
 
       <main id="top" class="mx-auto mt-24 flex max-w-6xl flex-col gap-[120px] px-4 sm:px-6">
         <section
-          class="relative overflow-hidden rounded-[192px] border border-white/10 bg-[#030512] shadow-[0_60px_140px_rgba(0,0,0,0.5)]"
+          id="media-network"
+          class="group relative overflow-hidden rounded-[192px] border border-white/10 bg-[#030512] shadow-[0_60px_140px_rgba(0,0,0,0.5)]"
         >
           <video
-            class="absolute inset-0 h-full w-full object-cover"
+            class="absolute inset-0 h-full w-full object-cover z-10"
             src="/hero-video.mp4"
             autoplay
             muted
             loop
             playsinline
           ></video>
-          <div class="absolute inset-0 bg-gradient-to-tr from-[#02030b]/80 via-[#05071a]/75 to-[#070818]/90"></div>
-          <div class="relative z-10 flex flex-col items-center gap-8 px-6 py-16 sm:px-12 sm:py-40">
+          <div class="absolute inset-0 bg-gradient-to-tr from-[#02030b]/80 via-[#05071a]/75 to-[#070818]/90 z-20"></div>
+          <div
+            class="pointer-events-none absolute inset-[-80px] rounded-[240px] bg-[radial-gradient(circle_at_center,rgba(104,152,255,0.48),rgba(4,7,18,0))] opacity-0 blur-[120px] transition-opacity duration-300 group-hover:opacity-100 mix-blend-screen z-25"
+          ></div>
+          <div class="relative z-30 flex flex-col items-center gap-8 px-6 py-16 sm:px-12 sm:py-40">
             <div class="m-0! p-0!">
               <span
                 class="rounded-[14px] bg-gradient-to-r from-[#7a63ff] to-[#c459ff] px-3 py-2 text-[0.7rem] font-semibold tracking-[0.18em] text-white opacity-88 shadow-[0_12px_30px_rgba(122,99,255,0.35)]"
               >
-                Web3 wallet
+                web3 wallet
               </span>
             </div>
             <h1 class="text-center text-4xl max-w-[640px] font-light leading-[1.15] sm:text-6xl">
@@ -99,20 +104,23 @@ import '../styles/global.css';
                </p>
             <div class="flex flex-wrap items-center justify-center gap-4">
               <a
-                href="#"
+                href="https://coinmarketcap.com/currencies/pkt/"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="inline-flex min-w-[160px] items-center justify-center rounded-[18px] bg-white px-6 py-3 text-sm font-semibold text-[#0b0e1b] shadow-[0_15px_40px_rgba(255,255,255,0.2)] transition hover:-translate-y-0.5"
               >
                 Buy PKT
               </a>
-              <button
+              <a
+                href="#overview"
                 class="inline-flex min-w-[160px] items-center justify-center rounded-[18px] border border-white/40 px-6 py-3 text-sm font-semibold text-white/90 transition hover:border-white/70 hover:bg-white/10 cursor-pointer hover:-translate-y-0.5"
               >
                 More details
-              </button>
+              </a>
             </div>
           </div>
         </section>
-		<section class="relative w-full overflow-visible">
+		<section class="relative w-full overflow-visible" id="overview">
           <div
             class="pointer-events-none absolute left-1/2 top-1/4 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/4 -z-10 rounded-full blur-[220px]"
             style={`background: radial-gradient(circle, rgba(143,213,255,0.3) 0%, rgba(74,147,255,0.15) 55%, rgba(8,18,38,0) 100%);`}
@@ -127,9 +135,9 @@ import '../styles/global.css';
             </div>
             <div class="grid w-full gap-5 md:grid-cols-3">
               {[
-                { title: 'Total network users', metric: '36,501', image: '/cards/1card.png' },
-                { title: 'Total staked PKT', metric: '542.33M PKT', image: '/cards/2card.png' },
-                { title: 'PKT price', metric: '$0.0002 / PKT', image: '/cards/3card.png' }
+                { title: 'Total network users', metric: '36,501', video: '/sec2card1.mp4' },
+                { title: 'Total staked PKT', metric: '542.33M PKT', video: '/sec2card2.mp4' },
+                { title: 'PKT price', metric: '$0.0002 / PKT', video: '/sec2card3.mp4' }
               ].map(card => (
                 <div
                   class="rounded-[46px] bg-gradient-to-b from-white/30 via-white/10 to-black/80 p-[1px] transition-colors transition-transform duration-200 ease-in hover:from-white/55 hover:via-white/25 hover:to-black/80 hover:-translate-y-1 will-change-transform transform-gpu"
@@ -137,10 +145,11 @@ import '../styles/global.css';
                   <article
                     class="group relative flex flex-col gap-6 rounded-[44px] bg-[#040712]/95 p-6 shadow-[0_30px_80px_rgba(0,0,0,0.35)]"
                   >
+                    <div class="pointer-events-none absolute inset-0 rounded-[44px] bg-[radial-gradient(circle_at_center,rgba(79,133,255,0.16),rgba(79,133,255,0))] opacity-0 blur-2xl transition-opacity duration-200 group-hover:opacity-100"></div>
                     <span
                       class="pointer-events-none absolute left-1/2 top-0 block h-[2px] w-[60%] -translate-x-1/2 bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-70"
                     ></span>
-                <div class="flex flex-col items-center gap-4 text-center mt-6">
+                    <div class="flex flex-col items-center gap-4 text-center mt-6">
                       <p class="text-sm font-normal text-white/80">{card.title}</p>
                       <p
                         class="text-3xl font-semibold text-transparent bg-gradient-to-r from-[#f4f6ff] via-[#d7dcef] to-[#aeb6d8] bg-clip-text"
@@ -149,13 +158,14 @@ import '../styles/global.css';
                       </p>
                     </div>
                     <div class="relative mt-6 h-[400px] w-full overflow-hidden rounded-[36px] border border-white/5">
-                      <img
-                        src={card.image}
-                        alt={`${card.title} placeholder`}
-                        class="h-full w-full object-cover"
-                        loading="lazy"
-                      />
-                      <div class="absolute inset-0 rounded-2xl bg-black/30"></div>
+                      <video
+                        class="card-video absolute inset-0 h-full w-full object-cover"
+                        src={card.video}
+                        muted
+                        loop
+                        playsinline
+                      ></video>
+                      <div class="absolute inset-0 rounded-2xl bg-black/60 transition-opacity duration-200 group-hover:opacity-0"></div>
                       <div
                         class="absolute inset-x-0 bottom-0 h-1/2 rounded-b-2xl bg-gradient-to-t from-black/80 via-black/60 to-transparent"
                       ></div>
@@ -168,6 +178,7 @@ import '../styles/global.css';
         </section>
         <section
           class="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] overflow-hidden rounded-t-[80px] bg-[#030512]/80 px-4 py-10 sm:px-6 sm:py-14 shadow-[0_60px_140px_rgba(2,5,12,0.7)] backdrop-blur-2xl"
+          id="next-gen"
         >
           <div
             class="pointer-events-none absolute inset-0 opacity-60"
@@ -182,7 +193,7 @@ import '../styles/global.css';
               {
                 title: 'Decentralized physical infrastructure',
                 body:
-                  'PKT is a globally accessible media network with no central infrastructure. Pkteers like you are economically incentivized to build the network.'
+                  'PKT is a decentralized global media network, built and powered by economically incentivized Pkteers.'
               },
               {
                 title: 'Stake to earn',
@@ -201,32 +212,329 @@ import '../styles/global.css';
               }
             ].map(item => (
               <article
-                class="group relative flex flex-col gap-6 rounded-[44px] border border-white/15 p-8 text-left shadow-[0_35px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl overflow-hidden"
-                style={`background-color: rgba(4,7,18,0.16);`}
+                class="group relative rounded-[44px] border border-white/15 p-8 text-left shadow-[0_35px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl overflow-hidden"
               >
                 <span
-                  class="pointer-events-none absolute inset-x-10 top-0 block h-[2px] bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-60"
+                  class="pointer-events-none absolute inset-x-10 top-0 z-10 block h-[2px] bg-gradient-to-r from-transparent via-white/60 to-transparent opacity-60"
                 ></span>
-                <div
-                  class="pointer-events-none absolute inset-0 opacity-50 blur-2xl bg-[radial-gradient(circle_at_top,rgba(111,184,255,0.25),transparent_60%)] transition-transform duration-700 ease-out group-hover:scale-150"
-                ></div>
-                <div>
-                  <h3 class="text-xl font-semibold text-white">{item.title}</h3>
-                  <p class="mt-4 text-sm leading-relaxed text-white/70">{item.body}</p>
-                </div>
-                <div class="mt-auto flex justify-start">
-                  <a
-                    href="#"
-                    class="inline-flex min-w-[160px] items-center justify-center rounded-[18px] bg-white px-6 py-3 text-sm font-semibold text-[#0b0e1b] shadow-[0_15px_40px_rgba(255,255,255,0.2)] transition hover:-translate-y-0.5"
-                  >
-                    Explore
-                  </a>
+                <div class="absolute inset-0 rounded-[44px] bg-[#030512] transition-opacity duration-200 opacity-100 group-hover:opacity-25 pointer-events-none z-0"></div>
+                <div class="relative z-10 flex flex-col gap-6">
+                  <div
+                    class="pointer-events-none absolute inset-0 opacity-50 blur-2xl bg-[radial-gradient(circle_at_top,rgba(111,184,255,0.25),transparent_60%)] transition-transform duration-700 ease-out group-hover:scale-150"
+                  ></div>
+                  <div>
+                    <h3 class="text-xl font-semibold text-white">{item.title}</h3>
+                    <p class="mt-4 text-sm leading-relaxed text-white/70">{item.body}</p>
+                  </div>
+                  <div class="mt-auto flex justify-start">
+                    <a
+                      href="https://docsend.com/view/ayf5d3tz5rymn8fv"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="inline-flex min-w-[160px] items-center justify-center rounded-[18px] bg-white px-6 py-3 text-sm font-semibold text-[#0b0e1b] shadow-[0_15px_40px_rgba(255,255,255,0.2)] transition hover:-translate-y-0.5"
+                    >
+                      Explore
+                    </a>
+                  </div>
                 </div>
               </article>
             ))}
           </div>
         </section>
+        <section class="relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] -mt-[120px] overflow-hidden rounded-t-none rounded-b-[64px] px-4 py-16 sm:px-6 sm:py-20 min-h-[820px]" id="pillars">
+          <div class="absolute inset-0 overflow-hidden">
+            <img src="/bg4section.png" alt="" class="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+            <div class="absolute inset-0 bg-gradient-to-b from-[#02030b] via-[#030512]/90 to-transparent"></div>
+          </div>
+          <div class="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#02030b] to-transparent z-10"></div>
+          <div class="relative z-10 mx-auto flex max-w-6xl flex-col gap-3 px-4 text-center sm:px-6">
+            <h2 class="text-3xl font-normal text-white">The three pillars of PKT</h2>
+          </div>
+          <div class="relative z-10 mx-auto grid max-w-6xl gap-6 px-4 pb-10 sm:px-6 sm:pb-14 sm:grid-cols-2 lg:grid-cols-3 mt-8">
+              {[
+                {
+                  title: 'Media',
+                  body:
+                    'PKT Network is a fully decentralized media network. Anyone can distribute media content with global accessibility, censorship-resistance and built-in payments.'
+                },
+                {
+                  title: 'Infrastructure',
+                  body:
+                    'Participants are paid to power the network by staking the PKT cryptocurrency and operating nodes. This supports the network’s connectivity and traffic routing.'
+                },
+                {
+                  title: 'Decentralized domains',
+                  body:
+                    'The network uses a blockchain-based domain name system called PKT DNS, which registers domain names that are accessible from all web browsers without requiring special software.'
+                }
+              ].map((pillar, idx) => (
+              <article
+                class="group relative overflow-hidden rounded-[36px] border border-white/10 bg-white/5 p-6 shadow-[0_35px_90px_rgba(0,0,0,0.4)] backdrop-blur-xl transition-transform duration-200 hover:-translate-y-1"
+              >
+                <div class="pointer-events-none absolute inset-0 rounded-[36px] bg-[radial-gradient(circle_at_top,rgba(79,133,255,0.3),rgba(3,7,18,0))] opacity-0 blur-xl transition-opacity duration-200 group-hover:opacity-100"></div>
+                <div class="relative z-10 flex flex-col gap-4">
+                  <div class="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/15 bg-white/5 text-sm font-semibold text-white/80">
+                    {String(idx + 1).padStart(2, '0')}
+                  </div>
+                  <h3 class="text-xl font-semibold text-white">{pillar.title}</h3>
+                  <p class="text-sm leading-relaxed text-white/70">{pillar.body}</p>
+                </div>
+                </article>
+              ))}
+            </div>
+          <div class="relative z-10 mx-auto mt-6 mb-24 sm:mb-16 flex max-w-6xl flex-col items-center gap-6 px-4 text-center sm:px-6">
+            <div class="flex items-center gap-3 sm:gap-4 text-white/80">
+              {[
+                { label: 'Discord', href: 'https://discord.com/invite/pkt', icon: (
+                  <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current"><path d="M20.317 4.369a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.608 1.249-1.84-.276-3.68-.276-5.486 0-.164-.398-.41-.874-.622-1.249a.077.077 0 0 0-.079-.037 19.736 19.736 0 0 0-4.885 1.515.07.07 0 0 0-.032.028C.533 9.045-.319 13.58.099 18.063a.082.082 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.08.08 0 0 0 .087-.028c.461-.63.873-1.295 1.226-1.994a.076.076 0 0 0-.041-.105 13.107 13.107 0 0 1-1.872-.89.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.009c.12.099.246.198.373.292a.077.077 0 0 1-.007.128 12.299 12.299 0 0 1-1.873.889.076.076 0 0 0-.04.106c.36.698.772 1.363 1.225 1.993a.078.078 0 0 0 .087.028 19.876 19.876 0 0 0 5.994-3.03.077.077 0 0 0 .031-.055c.5-5.177-.838-9.674-3.548-13.666a.061.061 0 0 0-.031-.029zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.419-.019 1.334-.955 2.419-2.157 2.419zm7.962 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.419-.019 1.334-.955 2.419-2.157 2.419z"/></svg>
+                )},
+                { label: 'Twitter', href: 'https://x.com/pktcash', icon: (
+                  <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current"><path d="M19.6 7.2c.8-.5 1.4-1.2 1.7-2-.8.5-1.6.8-2.4 1-.7-.8-1.7-1.3-2.8-1.3-2.1 0-3.8 1.7-3.8 3.8 0 .3 0 .6.1.8-3.2-.2-6-1.7-7.9-4.1-.3.5-.5 1.1-.5 1.7 0 1.3.7 2.5 1.7 3.1-.6 0-1.2-.2-1.7-.5v.1c0 1.8 1.3 3.3 3 3.6-.3.1-.6.1-1 .1-.2 0-.5 0-.7-.1.5 1.5 2 2.6 3.6 2.6-1.3 1-2.9 1.6-4.6 1.6-.3 0-.6 0-.9-.1 1.6 1 3.6 1.6 5.7 1.6 6.8 0 10.4-5.6 10.4-10.4v-.5c.7-.5 1.3-1.1 1.7-1.8Z"/></svg>
+                )},
+                { label: 'Telegram', href: 'https://t.me/pktcash', icon: (
+                  <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current"><path d="M22.5 2.6c-.5-.4-1.2-.5-2.1-.2L2.8 9.5c-1.4.6-1.3 1.5-.2 1.8l4.8 1.5 1.7 5.4c.2.6.9.8 1.3.3l2.4-2.4 4.9 3.8c.8.5 1.4.3 1.6-.6l3-16.9c.2-.9-.1-1.4-.8-1.8ZM8.9 13.6l9.3-6.1c.5-.3.9-.2.5.1l-7.6 6.8-.3 3.6-1.6-4.4Z"/></svg>
+                )}
+              ].map(item => (
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/5 border border-white/10 text-white/80 transition hover:bg-white/10 hover:text-white"
+                >
+                  {item.icon}
+                </a>
+              ))}
+            </div>
+          </div>
+          <div class="absolute inset-x-0 bottom-0 z-20 w-full bg-gradient-to-t from-[#030512]/85 via-[#030512]/60 to-transparent rounded-b-[32px]">
+            <div class="mx-auto flex max-w-6xl flex-col gap-10 px-4 pb-12 pt-12 text-center sm:px-6 sm:flex-row sm:items-center sm:justify-between sm:text-left sm:gap-8 sm:pt-10 sm:pb-10">
+              <div class="flex items-center justify-center sm:mr-auto mt-10 sm:mt-0">
+                <img src="/pktlogo.svg" alt="PKT" class="h-8 w-auto opacity-80" />
+              </div>
+              <div class="flex flex-wrap items-center justify-center gap-4 text-sm text-[#b8c1de] sm:ml-auto">
+                {[
+                  { label: 'Media network', href: '#top' },
+                  { label: 'Overview', href: '#overview' },
+                    { label: 'Next gen', href: '#next-gen' },
+                    { label: 'Three pillars', href: '#pillars' }
+                  ].map(link => (
+                    <a
+                      href={link.href}
+                      class="rounded-full px-3 py-2 transition hover:bg-white/10 hover:text-white"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
+    <div
+      id="contact-modal"
+      class="fixed inset-0 z-50 hidden items-center justify-center bg-black/70 backdrop-blur-lg px-4"
+    >
+      <div class="relative w-full max-w-lg rounded-[44px] border border-white/10 bg-[#050815]/95 p-6 sm:p-8 shadow-[0_40px_120px_rgba(0,0,0,0.6)]">
+        <button
+          type="button"
+          data-modal-close
+          class="contact-content absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 transition hover:bg-white/10 hover:text-white cursor-pointer"
+          aria-label="Close"
+        >
+          ✕
+        </button>
+        <div class="flex flex-col gap-4 text-left" id="contact-body">
+          <h3 class="text-xl font-semibold text-white contact-content">Get in touch</h3>
+          <p class="text-sm text-white/70 contact-content">Share your details and we’ll reach out.</p>
+          <form class="flex flex-col gap-4 contact-content" id="contact-form">
+            <label class="flex flex-col gap-2 text-sm text-white/80" data-field="name">
+              Name
+              <input
+                type="text"
+                class="rounded-[14px] border border-white/10 bg-white/5 px-3 py-3 text-white placeholder:text-white/40 focus:border-white/30 focus:outline-none"
+                placeholder="Your name"
+              />
+              <span class="text-xs text-red-300 hidden">Please enter your name.</span>
+            </label>
+            <label class="flex flex-col gap-2 text-sm text-white/80" data-field="email">
+              Email
+              <input
+                type="email"
+                class="rounded-[14px] border border-white/10 bg-white/5 px-3 py-3 text-white placeholder:text-white/40 focus:border-white/30 focus:outline-none"
+                placeholder="you@example.com"
+              />
+              <span class="text-xs text-red-300 hidden">Please enter a valid email.</span>
+            </label>
+            <label class="flex flex-col gap-2 text-sm text-white/80" data-field="message">
+              Type your message
+              <textarea
+                rows="4"
+                class="rounded-[14px] border border-white/10 bg-white/5 px-3 py-3 text-white placeholder:text-white/40 focus:border-white/30 focus:outline-none"
+                placeholder="How can we help?"
+              ></textarea>
+              <span class="text-xs text-red-300 hidden">Please enter your message.</span>
+            </label>
+            <button
+              type="submit"
+              class="inline-flex items-center justify-center rounded-[14px] bg-white px-5 py-3 text-sm font-semibold text-[#0b0e1b] shadow-[0_15px_35px_rgba(255,255,255,0.25)] transition hover:-translate-y-0.5 hover:shadow-[0_25px_45px_rgba(255,255,255,0.35)] cursor-pointer"
+            >
+              Send message
+            </button>
+          </form>
+        </div>
+        <div
+          id="contact-success"
+          class="hidden rounded-[44px] border border-white/10 bg-white/5 p-6 flex flex-col gap-3 text-white relative"
+        >
+          <button
+            type="button"
+            data-modal-close
+            class="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/70 transition hover:bg-white/10 hover:text-white cursor-pointer"
+            aria-label="Close"
+          >
+            ✕
+          </button>
+          <h3 class="text-xl font-semibold text-white pr-10">Thanks for your message!</h3>
+          <p class="text-sm text-white/70 pr-10">Our team will get in touch soon.</p>
+          <div class="pt-2">
+            <button
+              type="button"
+              data-modal-close
+              class="inline-flex items-center justify-center rounded-[14px] bg-white px-5 py-3 text-sm font-semibold text-[#0b0e1b] shadow-[0_15px_35px_rgba(255,255,255,0.25)] transition hover:-translate-y-0.5 hover:shadow-[0_25px_45px_rgba(255,255,255,0.35)] cursor-pointer"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      if (typeof window !== 'undefined') {
+        document.querySelectorAll('.card-video').forEach(video => {
+          const card = video.closest('.group');
+          if (!card) return;
+          const play = () => video.play().catch(() => {});
+          const stop = () => {
+            video.pause();
+            video.currentTime = 0;
+          };
+          stop();
+          card.addEventListener('mouseenter', play);
+          card.addEventListener('mouseleave', stop);
+        });
+        const modal = document.getElementById('contact-modal');
+        const openers = document.querySelectorAll('[data-modal-open]');
+        const closers = document.querySelectorAll('[data-modal-close]');
+        if ('scrollRestoration' in history) {
+          history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+        window.addEventListener('load', () => window.scrollTo(0, 0));
+        const form = modal?.querySelector('#contact-form');
+        const formBody = modal?.querySelector('#contact-body');
+        const successBox = modal?.querySelector('#contact-success');
+        const primaryClose = modal?.querySelector('.contact-content[data-modal-close]');
+        const showForm = () => {
+          successBox?.classList.add('hidden');
+          successBox?.classList.remove('flex');
+          formBody?.classList.remove('hidden');
+          formBody?.classList.add('flex');
+          form?.classList.remove('hidden');
+          form?.classList.add('flex');
+          modal?.querySelectorAll('.contact-content').forEach(el => {
+            el.classList.remove('hidden');
+            el.removeAttribute('style');
+          });
+        };
+        const showSuccess = () => {
+          modal?.querySelectorAll('.contact-content').forEach(el => {
+            el.classList.add('hidden');
+            el.setAttribute('style', 'display:none;');
+          });
+          form?.classList.add('hidden');
+          formBody?.classList.add('hidden');
+          successBox?.classList.remove('hidden');
+          successBox?.classList.add('flex');
+        };
+        const openModal = e => {
+          e.preventDefault();
+          modal?.classList.remove('hidden');
+          modal?.classList.add('flex');
+          window.scrollTo(0, 0);
+          // reset views on open
+          showForm();
+        };
+        const closeModal = e => {
+          e?.preventDefault();
+          modal?.classList.add('hidden');
+          modal?.classList.remove('flex');
+          if (!form) return;
+          form.reset();
+          showForm();
+          form.querySelectorAll('[data-field]').forEach(field => {
+            field.classList.remove('text-red-200');
+            field.querySelectorAll('span.text-red-300').forEach(err => err.classList.add('hidden'));
+            field.querySelectorAll('input, textarea').forEach(el => {
+              el.classList.remove('border-red-400');
+            });
+          });
+        };
+        openers.forEach(btn => btn.addEventListener('click', openModal));
+        closers.forEach(btn => btn.addEventListener('click', closeModal));
+        modal?.addEventListener('click', e => {
+          if (e.target === modal) closeModal();
+        });
+        form?.addEventListener('submit', e => {
+          e.preventDefault();
+          let valid = true;
+          const fields = {
+            name: form.querySelector('[data-field="name"] input'),
+            email: form.querySelector('[data-field="email"] input'),
+            message: form.querySelector('[data-field="message"] textarea')
+          };
+          Object.entries(fields).forEach(([key, el]) => {
+            const wrapper = el?.closest('[data-field]');
+            const error = wrapper?.querySelector('span.text-red-300');
+            const value = el?.value.trim() || '';
+            let showError = false;
+            if (!value) showError = true;
+            if (key === 'email' && value) {
+              const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+              showError = !emailOk;
+            }
+            if (showError) {
+              valid = false;
+              el?.classList.add('border-red-400');
+              error?.classList.remove('hidden');
+            } else {
+              el?.classList.remove('border-red-400');
+              error?.classList.add('hidden');
+            }
+          });
+          if (valid) {
+            showSuccess();
+          }
+        });
+        form?.querySelectorAll('[data-field]').forEach(wrapper => {
+          const input = wrapper.querySelector('input, textarea');
+          const error = wrapper.querySelector('span.text-red-300');
+          input?.addEventListener('input', () => {
+            const value = input.value.trim();
+            let showError = !value;
+            if (wrapper.dataset.field === 'email' && value) {
+              showError = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+            }
+            if (showError) {
+              input.classList.add('border-red-400');
+              error?.classList.remove('hidden');
+            } else {
+              input.classList.remove('border-red-400');
+              error?.classList.add('hidden');
+            }
+          });
+        });
+      }
+    </script>
   </body>
 </html>
